@@ -84,8 +84,7 @@ class AccordionSection extends StatelessWidget with CommonParams {
     sectionCtrl.isSectionOpen.value = listCtrl.openSections.contains(uniqueKey);
 
     this.headerBackgroundColor = headerBackgroundColor;
-    this.headerBackgroundColorOpened =
-        headerBackgroundColorOpened ?? headerBackgroundColor;
+    this.headerBackgroundColorOpened = headerBackgroundColorOpened ?? headerBackgroundColor;
     this.headerBorderRadius = headerBorderRadius;
     this.headerPadding = headerPadding;
     this.leftIcon = leftIcon;
@@ -99,8 +98,7 @@ class AccordionSection extends StatelessWidget with CommonParams {
     this.contentVerticalPadding = contentVerticalPadding ?? 10;
     this.paddingBetweenOpenSections = paddingBetweenOpenSections ?? 10;
     this.paddingBetweenClosedSections = paddingBetweenClosedSections ?? 10;
-    this.scrollIntoViewOfItems =
-        scrollIntoViewOfItems ?? ScrollIntoViewOfItems.fast;
+    this.scrollIntoViewOfItems = scrollIntoViewOfItems ?? ScrollIntoViewOfItems.fast;
     this.sectionOpeningHapticFeedback = sectionOpeningHapticFeedback;
     this.sectionClosingHapticFeedback = sectionClosingHapticFeedback;
     this.accordionId = accordionId;
@@ -113,8 +111,7 @@ class AccordionSection extends StatelessWidget with CommonParams {
   /// getter to flip the widget vertically (Icon by default)
   /// on the right of this section header to visually indicate
   /// if this section is open or closed
-  get _flipQuarterTurns =>
-      flipRightIconIfOpen?.value == true ? (_isOpen ? 2 : 0) : 0;
+  get _flipQuarterTurns => flipRightIconIfOpen?.value == true ? (_isOpen ? 2 : 0) : 0;
 
   /// getter indication the open or closed status of this section
   get _isOpen {
@@ -122,14 +119,10 @@ class AccordionSection extends StatelessWidget with CommonParams {
     final open = sectionCtrl.isSectionOpen.value;
 
     Timer(
-      sectionCtrl.firstRun
-          ? (listCtrl.initialOpeningSequenceDelay + min(index * 200, 1000))
-              .milliseconds
-          : 0.seconds,
+      sectionCtrl.firstRun ? (listCtrl.initialOpeningSequenceDelay + min(index * 200, 1000)).milliseconds : 0.seconds,
       () {
         if (Accordion.sectionAnimation) {
-          sectionCtrl.controller
-              .fling(velocity: open ? 1 : -1, springDescription: springFast);
+          sectionCtrl.controller.fling(velocity: open ? 1 : -1, springDescription: springFast);
         } else {
           sectionCtrl.controller.value = open ? 1 : 0;
         }
@@ -142,8 +135,7 @@ class AccordionSection extends StatelessWidget with CommonParams {
 
   /// play haptic feedback when opening/closing sections
   _playHapticFeedback(bool opening) {
-    final feedback =
-        opening ? sectionOpeningHapticFeedback : sectionClosingHapticFeedback;
+    final feedback = opening ? sectionOpeningHapticFeedback : sectionClosingHapticFeedback;
 
     switch (feedback) {
       case SectionHapticFeedback.light:
@@ -174,25 +166,19 @@ class AccordionSection extends StatelessWidget with CommonParams {
         key: uniqueKey,
         children: [
           InkWell(
+            borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
             onTap: () {
               final listCtrl = Get.put(ListController(), tag: accordionId);
               listCtrl.updateSections(uniqueKey);
               _playHapticFeedback(_isOpen);
 
-              if (_isOpen &&
-                  scrollIntoViewOfItems != ScrollIntoViewOfItems.none &&
-                  listCtrl.controller.hasClients) {
+              if (_isOpen && scrollIntoViewOfItems != ScrollIntoViewOfItems.none && listCtrl.controller.hasClients) {
                 Timer(
                   250.milliseconds,
                   () {
                     listCtrl.controller.cancelAllHighlights();
                     listCtrl.controller.scrollToIndex(index,
-                        preferPosition: AutoScrollPosition.middle,
-                        duration:
-                            (scrollIntoViewOfItems == ScrollIntoViewOfItems.fast
-                                    ? .5
-                                    : 1)
-                                .seconds);
+                        preferPosition: AutoScrollPosition.middle, duration: (scrollIntoViewOfItems == ScrollIntoViewOfItems.fast ? .5 : 1).seconds);
                   },
                 );
               }
@@ -204,17 +190,12 @@ class AccordionSection extends StatelessWidget with CommonParams {
               }
             },
             child: AnimatedContainer(
-              duration: Accordion.sectionAnimation
-                  ? 750.milliseconds
-                  : 0.milliseconds,
+              duration: Accordion.sectionAnimation ? 750.milliseconds : 0.milliseconds,
               curve: Curves.easeOut,
               alignment: Alignment.center,
               padding: headerPadding,
               decoration: BoxDecoration(
-                color: (_isOpen
-                        ? headerBackgroundColorOpened
-                        : headerBackgroundColor) ??
-                    Theme.of(context).primaryColor,
+                color: (_isOpen ? headerBackgroundColorOpened : headerBackgroundColor) ?? Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.vertical(
                   top: Radius.circular(borderRadius),
                   bottom: Radius.circular(_isOpen ? 0 : borderRadius),
@@ -226,72 +207,33 @@ class AccordionSection extends StatelessWidget with CommonParams {
                   Expanded(
                     flex: 10,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: leftIcon == null ? 0 : 15),
+                      padding: EdgeInsets.symmetric(horizontal: leftIcon == null ? 0 : 15),
                       child: header,
                     ),
                   ),
-                  if (rightIcon != null)
-                    RotatedBox(
-                        quarterTurns: _flipQuarterTurns, child: rightIcon!),
+                  if (rightIcon != null) RotatedBox(quarterTurns: _flipQuarterTurns, child: rightIcon!),
                 ],
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(
-                bottom: _isOpen
-                    ? paddingBetweenOpenSections!
-                    : paddingBetweenClosedSections!),
+            padding: EdgeInsets.only(bottom: _isOpen ? paddingBetweenOpenSections! : paddingBetweenClosedSections!),
             child: SizeTransition(
               sizeFactor: sectionCtrl.controller,
               child: ScaleTransition(
-                scale: Accordion.sectionScaleAnimation
-                    ? sectionCtrl.controller
-                    : const AlwaysStoppedAnimation(1.0),
-                child: Center(
-                  child: Container(
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      color:
-                          contentBorderColor ?? Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.vertical(
-                          bottom: Radius.circular(contentBorderRadius!)),
+                scale: Accordion.sectionScaleAnimation ? sectionCtrl.controller : const AlwaysStoppedAnimation(1.0),
+                child: Container(
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: contentBorderColor ?? headerBackgroundColorOpened ?? Theme.of(context).primaryColor,
+                      width: contentBorderWidth!,
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        contentBorderWidth ?? 1,
-                        0,
-                        contentBorderWidth ?? 1,
-                        contentBorderWidth ?? 1,
-                      ),
-                      child: Container(
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.vertical(
-                                bottom: Radius.circular(
-                                    contentBorderRadius! / 1.02))),
-                        child: Container(
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                              color: contentBackgroundColor,
-                              borderRadius: BorderRadius.vertical(
-                                  bottom: Radius.circular(
-                                      contentBorderRadius! / 1.02))),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: contentHorizontalPadding!,
-                              vertical: contentVerticalPadding!,
-                            ),
-                            child: Center(
-                              child: content,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    borderRadius: BorderRadius.vertical(bottom: Radius.circular(contentBorderRadius!)),
+                    color: contentBackgroundColor,
                   ),
+                  padding: EdgeInsets.symmetric(horizontal: contentHorizontalPadding!, vertical: contentVerticalPadding!),
+                  child: content,
                 ),
               ),
             ),

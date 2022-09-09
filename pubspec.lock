@@ -5,14 +5,14 @@ packages:
     dependency: transitive
     description:
       name: characters
-      url: "https://pub.dartlang.org"
+      url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.2.0"
+    version: "1.2.1"
   collection:
     dependency: transitive
     description:
       name: collection
-      url: "https://pub.dartlang.org"
+      url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.16.0"
   flutter:
@@ -24,42 +24,42 @@ packages:
     dependency: "direct dev"
     description:
       name: flutter_lints
-      url: "https://pub.dartlang.org"
+      url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.1"
   get:
     dependency: "direct main"
     description:
       name: get
-      url: "https://pub.dartlang.org"
+      url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.6.5"
   lints:
     dependency: transitive
     description:
       name: lints
-      url: "https://pub.dartlang.org"
+      url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.0"
   material_color_utilities:
     dependency: transitive
     description:
       name: material_color_utilities
-      url: "https://pub.dartlang.org"
+      url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.1.4"
+    version: "0.1.5"
   meta:
     dependency: transitive
     description:
       name: meta
-      url: "https://pub.dartlang.org"
+      url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.7.0"
+    version: "1.8.0"
   scroll_to_index:
     dependency: "direct main"
     description:
       name: scroll_to_index
-      url: "https://pub.dartlang.org"
+      url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.1"
   sky_engine:
@@ -71,7 +71,7 @@ packages:
     dependency: transitive
     description:
       name: vector_math
-      url: "https://pub.dartlang.org"
+      url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.2"
 sdks:
